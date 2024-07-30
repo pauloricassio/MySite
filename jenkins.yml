@@ -1,0 +1,49 @@
+version: 6.0.0
+global:
+  application: app-teste
+  type: web
+  gearr: 24142
+  business_service: Other
+  assigmen_group: Brazil DevSecOps PaaS
+  language: angular
+  package: jar
+  framework: spring
+  tribe: infra
+  squad: DevSecOps PaaS
+  jira_key: EDPB
+  gearr_dependencies: 8279, 24473, 25030
+  cmdb_dependencies: devsecops-eks-02-sandbox, devsecops-eks-prod
+  dependguard: true
+feature*:
+  deploy:
+    openshift: --method=container --project=data-teste --promotion-src=dev-secops-br/go-demo:SNAPSHOT
+    script: echo "develop de features de OM - ENVIRONMENT"
+develop:
+  before_build:
+    script: echo "develop de features de OM - ENVIRONMENT"
+  notifications:
+    changeorder: normal
+  build:
+    docker:
+  deploy:
+    openshift: --method=container --project=dev-secops-br
+    eks: --cluster_name=pangolas --param2=xpto --param3=xptz
+    was: --environment=develop
+  after_deploy:
+    script:
+      env="prod" &&
+      jenkins_artfact_path="/tmp/coe-daelus-VERSION.jar" &&
+      s3_artifact_path="s3://serasaexperian-mlcoe-${env}-airflow/artifacts/daelus/" &&
+      echo "env-> ${env}" &&
+      echo "jenkins_artifact_path -> ${jenkins_path}" &&
+      echo "s3_artifact_path -> ${s3_artifact_path}"
+qa:
+  deploy:
+    openshift: --method=container --project=data-teste --promotion-src=dev-secops-br/go-demo:SNAPSHOT
+    script: echo "develop de features de OM - ENVIRONMENT"
+  notification:
+    changeorder: normal
+master:
+  deploy:
+    openshift: --method=container --project=data-teste --promotion-src=dev-secops-br/go-demo:SNAPSHOT
+    script: echo "develop de features de OM - ENVIRONMENT"
